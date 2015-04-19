@@ -46,7 +46,7 @@
 			</div>
 		</div>
 	</div>
-	<form action="add/${id }/?action=add" method="post">INPUT
+	<form action="add/${id }" method="post">INPUT
 						<input class="btn btn-default" type="submit" value="{{book.ID}}" path="id" name="ID">
 					</form>
 	<div>
@@ -54,7 +54,7 @@
 			String str = (String) session.getAttribute("currentUser");
 			out.println(str);
 		%>
-		<a class="btn btn-danger" href="details.jsp?action=add&id=${id }">add</a>
+		<a class="btn btn-danger" href="details/add">add</a>
 	</div>
 </body>
 </html>

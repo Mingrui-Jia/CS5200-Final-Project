@@ -41,7 +41,7 @@
 			<tr ng-repeat="book in books">
 				<td><img class="poster" ng-src="{{book.Image}}" width="50" />
 				</td>
-				<td><a href="book/{{book.ID}}">{{book.Title}}</a></td>
+				<td><a href="{{book.ID}}">{{book.Title}}</a></td>
 				<td>{{book.SubTitle}}</td>
 				<td>{{book.isbn}}</td>
 

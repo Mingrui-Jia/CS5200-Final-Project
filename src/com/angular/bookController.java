@@ -31,13 +31,13 @@ public class bookController {
 		String result ="this is delUser------";
 		return new ModelAndView("/static/000","result",result);
 	}
-	@RequestMapping(value="book/{bookID}")
+	@RequestMapping(value="/{bookID}")
 	public ModelAndView toDetails(@PathVariable String bookID){
 
 		String result ="this is details";
-		return new ModelAndView("/details","id",bookID);
+		return new ModelAndView("book/details","id",bookID);
 	}
-	@RequestMapping(value="book/book/add/{bookID}")
+	@RequestMapping(value="/add/{bookID}")
 	public ModelAndView addBook(@PathVariable String bookID,HttpServletRequest request){
 		System.out.println(bookID);
 		
@@ -48,6 +48,7 @@ public class bookController {
 		return toDetails(bookID);
 		//return new ModelAndView("/book/"+bookID,"id",bookID);
 	}
+	
 	
 	
 
