@@ -54,7 +54,7 @@
 			String str = (String) session.getAttribute("currentUser");
 			out.println(str);
 		%>
-		<a class="btn btn-danger" href="details/add">add</a>
+		<a class="btn btn-danger" href="addFavor/${id }/<%=str%>">add</a>
 	</div>
 </body>
 </html>

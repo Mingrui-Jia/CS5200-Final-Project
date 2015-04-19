@@ -49,7 +49,19 @@ public class bookController {
 		//return new ModelAndView("/book/"+bookID,"id",bookID);
 	}
 	
-	
+	@RequestMapping(value="/addFavor/{bookID}/{username}")
+	public String addFavor(@PathVariable String bookID,@PathVariable String username,HttpServletRequest request){
+		if(username.equals("null")){
+			UserController uc= new UserController();
+			return uc.login();
+		}
+		Book book= new Book();
+		book.setId(bookID);
+		bookManager.saveBook(book);
+		
+		return "book/confirm";
+		//return new ModelAndView("/book/"+bookID,"id",bookID);
+	}
 	
 
 }
