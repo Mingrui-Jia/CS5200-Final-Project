@@ -5,5 +5,5 @@ import com.angular.entity.Book;
 public interface IBookManager {
 
 	public void saveBook(Book book);
-	//public boolean checkUser(User user);
+	public boolean checkBook(Book book);
 }

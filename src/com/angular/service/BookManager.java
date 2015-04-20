@@ -22,6 +22,12 @@ public class BookManager implements IBookManager {
 		bookDao.saveBook(book);
 		
 	}
+
+
+	@Override
+	public boolean checkBook(Book book) {
+		return bookDao.checkBook(book);
+	}
 	
 	
 

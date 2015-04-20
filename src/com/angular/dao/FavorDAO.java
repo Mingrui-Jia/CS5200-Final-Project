@@ -4,9 +4,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.angular.entity.Book;
 
-public class BookDAO implements IBookDAO{
+import com.angular.entity.Favor;
+
+public class FavorDAO implements IFavorDAO{
 
 	private SessionFactory sessionFactory;
 	public SessionFactory getSessionFactory() {
@@ -17,10 +18,10 @@ public class BookDAO implements IBookDAO{
 	}
 	@Override
 	@Transactional
-	public void saveBook(Book book) {
+	public void saveFavor(Favor favor) {
 		Session s=sessionFactory.openSession();
 		s.beginTransaction();
-		s.save(book);
+		s.save(favor);
 		s.getTransaction().commit();
 		s.close();
 		
@@ -35,11 +36,11 @@ public class BookDAO implements IBookDAO{
 		
 	}
 	@Override
-	public boolean checkBook(Book book) {
+	public boolean checkFavor(Favor favor) {
 		// TODO Auto-generated method stub
 		Session s=sessionFactory.openSession();
 		s.beginTransaction();
-		Book book1=(Book)s.get(Book.class, book.getId());
+		Favor book1=(Favor)s.get(Favor.class, favor);
 		
 		s.getTransaction().commit();
 		return(book1!=null);

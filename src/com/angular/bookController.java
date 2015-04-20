@@ -3,6 +3,7 @@ package com.angular;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 
 import org.springframework.stereotype.Controller;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.angular.entity.Book;
+import com.angular.entity.Favor;
 import com.angular.entity.User;
 import com.angular.service.IBookManager;
+import com.angular.service.IFavorManager;
 import com.angular.service.IUserManager;
 
 
@@ -22,6 +25,8 @@ import com.angular.service.IUserManager;
 public class bookController {
 	@Resource(name="bookManager")
 	private IBookManager bookManager;
+	@Resource(name="favorManager")
+	private IFavorManager favorManager;
 	
 	
 	
@@ -57,9 +62,26 @@ public class bookController {
 		}
 		Book book= new Book();
 		book.setId(bookID);
-		bookManager.saveBook(book);
+		if(!bookManager.checkBook(book)){
+			
+			bookManager.saveBook(book);
+		}else{
+			System.out.println("book already exists");
+		}
+		Favor favor=new Favor();
+		favor.setBookID(bookID);
+		favor.setUserID(username);
+		if(favorManager.checkFavor(favor)){
+			return "book/already";
+		}else{
+			System.out.println(favor.getBookID());
+			System.out.println(favor.getUserID());
+			favorManager.saveFavor(favor);
+			HttpSession session=request.getSession();
+			session.setAttribute("bookID", bookID);
+			return "book/confirm";
+		}
 		
-		return "book/confirm";
 		//return new ModelAndView("/book/"+bookID,"id",bookID);
 	}
 	

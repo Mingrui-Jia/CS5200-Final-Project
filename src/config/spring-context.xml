@@ -2,6 +2,8 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
+
+	<!-- ______________________________________For user_________________________________________ -->
 	<bean id="userDao" class="com.angular.dao.UserDAO">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
@@ -12,7 +14,9 @@
 	<bean id="userManager" parent="transactionBese">
 		<property name="target" ref="userManagerBase"></property>
 
+		
 	</bean>
+	<!-- For book -->
 	<bean id="bookDao" class="com.angular.dao.BookDAO">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
@@ -25,4 +29,19 @@
 
 	</bean>
 
+
+
+	<!-- For Favor -->
+	<bean id="favorDao" class="com.angular.dao.FavorDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="favorManagerBase" class="com.angular.service.FavorManager">
+		<property name="favorDao" ref="favorDao"></property>
+	</bean>
+
+	<bean id="favorManager" parent="transactionBese">
+		<property name="target" ref="favorManagerBase"></property>
+
+	</bean>
+	
 </beans>
