@@ -57,6 +57,15 @@ public class UserDAO implements IUserDAO {
 		
 	}
 	
-
+	@Override
+	public boolean checkUserExist(User user) {
+		// ¼ì²éÊäÈëµÄusernameÊÇ·ñ´æÔÚ
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+		User user1=(User)s.get(User.class, user.getUserName());
+		
+		s.getTransaction().commit();
+		return(user1!=null);
+	}
 	
 }

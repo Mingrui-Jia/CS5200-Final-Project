@@ -24,4 +24,8 @@ public class UserManager implements IUserManager {
 		return userDao.checkUser(user);
 	}
 
+	@Override
+	public boolean checkUserExist(User user){
+		return userDao.checkUserExist(user);
+	}
 }

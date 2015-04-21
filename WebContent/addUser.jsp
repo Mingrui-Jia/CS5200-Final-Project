@@ -11,7 +11,7 @@
 <script type="text/javascript">
 function addUser(){
 	var form=document.forms[0];
-	form.action="/ssh1/user/saveUser";
+	form.action="/ssh1/user/checkUserExist";
 	form.method="get";
 	form.submit();
 	

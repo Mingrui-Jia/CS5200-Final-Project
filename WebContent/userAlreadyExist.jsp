@@ -47,7 +47,7 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="<%=request.getContextPath()%>/book/search">Search</a></li>
 					<li><a href="<%=request.getContextPath()%>/user/<%=str%>">Account</a></li>
-					<li><a href="<%=request.getContextPath()%>/contact.jsp">Contact</a></li>
+				 <li><a href="<%=request.getContextPath()%>/contact.jsp">Contact</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -57,9 +57,9 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>Welcome back! <%=str%> </h1>
-        
-      </div>
+        <h1>The Username you typed in already exists.</h1>
+        <h2><a href="<%=request.getContextPath()%>/user/toSaveUser">Register</a></h2>
+        </div>
 
     </div><!-- /.container -->
 

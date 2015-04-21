@@ -47,7 +47,7 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="<%=request.getContextPath()%>/book/search">Search</a></li>
 					<li><a href="<%=request.getContextPath()%>/user/<%=str%>">Account</a></li>
-					<li><a href="<%=request.getContextPath()%>/contact.jsp">Contact</a></li>
+				 <li><a href="<%=request.getContextPath()%>/contact.jsp">Contact</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -57,9 +57,11 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>Welcome back! <%=str%> </h1>
-        
-      </div>
+        <h1>Contact</h1>
+        <h2>Mingrui Jia (jia.mi@husky.neu.edu)</h2>
+        <div></div>
+        <h2>Wenruo Wang(wang.wenr@husky.neu.edu)</h2>
+        </div>
 
     </div><!-- /.container -->
 

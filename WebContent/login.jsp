@@ -5,6 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>User login</title>
+
+    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+    <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 </head>
 <body>
 <script type="text/javascript">
@@ -19,14 +23,51 @@ function checkUser(){
 </script>
 </head>
 <body>
-	<form name="userForm" action="">
-		name:<input type="text" name="userName"> 
-		password:<input type="text" name="password">
-		
-		<input type="button" value="add" onclick="checkUser()">
-	</form>
-	<h2>login</h2>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">ebook4u</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+			<%
+				String str = (String) session.getAttribute("currentUser");
+			%>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="<%=request.getContextPath()%>/book/search">Search</a></li>
+					<li><a href="<%=request.getContextPath()%>/user/<%=str%>">Account</a></li>
+				 <li><a href="<%=request.getContextPath()%>/contact.jsp">Contact</a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
+<div class="container">
 
+      <form class="form-signin" name="userForm">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input name="userName" type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <input class="btn btn-lg btn-primary btn-block" type="button" value="login" onclick="checkUser()">
+        
+      </form>
+
+    </div> <!-- /container -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+     <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
 
 </body>
 </body>

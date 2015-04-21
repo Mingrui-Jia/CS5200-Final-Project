@@ -7,10 +7,13 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.*;
 
 import com.angular.entity.Book;
 import com.angular.entity.Favor;
@@ -37,13 +40,19 @@ public class bookController {
 		return new ModelAndView("/static/000","result",result);
 	}
 	@RequestMapping(value="/{bookID}")
-	public ModelAndView toDetails(@PathVariable String bookID){
+	public String toDetails(@PathVariable String bookID, Model model){
 
-		String result ="this is details";
-		return new ModelAndView("book/details","id",bookID);
+		//System.out.println("this is details");
+		List<String> users=(List<String>) favorManager.findUserByFavoriteBook(bookID);
+		
+		model.addAttribute("users", users);
+		model.addAttribute("id", bookID);
+		return  "book/details";
 	}
+	/*
 	@RequestMapping(value="/add/{bookID}")
-	public ModelAndView addBook(@PathVariable String bookID,HttpServletRequest request){
+	
+	public String addBook(@PathVariable String bookID,HttpServletRequest request){
 		System.out.println(bookID);
 		
 		Book book= new Book();
@@ -53,7 +62,7 @@ public class bookController {
 		return toDetails(bookID);
 		//return new ModelAndView("/book/"+bookID,"id",bookID);
 	}
-	
+	*/
 	@RequestMapping(value="/addFavor/{bookID}/{username}")
 	public String addFavor(@PathVariable String bookID,@PathVariable String username,HttpServletRequest request){
 		if(username.equals("null")){
