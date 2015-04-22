@@ -50,7 +50,20 @@ public class UserController {
 		}
 		else return saveUser(user);
 	}
+	@RequestMapping("/update/{username}")
+	public String toUpdate(@PathVariable String username, Model model){
+		model.addAttribute("username", username);
+		return "/updateProfile";
+	}
 	
+	@RequestMapping("/updateProfile/{username}")
+	public String updateProfile(User user,@PathVariable String username) {
+		System.out.println(user.getPassword());
+		user.setUserName(username);
+		userManager.updateProfile(user);
+		System.out.println("update success!");
+		return "/accountInfo";
+	}
 	@RequestMapping("/toSaveUser")
 	public String toSaveUser(){
 		return "/addUser";

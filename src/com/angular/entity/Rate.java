@@ -1,15 +1,17 @@
 package com.angular.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 @Entity
-public class Rate {
+@IdClass(value=ratePK.class)
+public class Rate implements Serializable{
 private String bid;
 private String uid;
-private double rate;
+private int rate;
 private Date rateDateTime;
 @Id
 public String getBid() {
@@ -25,10 +27,10 @@ public String getUid() {
 public void setUid(String uid) {
 	this.uid = uid;
 }
-public double getRate() {
+public int getRate() {
 	return rate;
 }
-public void setRate(double rate) {
+public void setRate(int rate) {
 	this.rate = rate;
 }
 public Date getRateDateTime() {
@@ -37,14 +39,13 @@ public Date getRateDateTime() {
 public void setRateDateTime(Date rateDateTime) {
 	this.rateDateTime = rateDateTime;
 }
+
 @Override
 public int hashCode() {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result + ((bid == null) ? 0 : bid.hashCode());
-	long temp;
-	temp = Double.doubleToLongBits(rate);
-	result = prime * result + (int) (temp ^ (temp >>> 32));
+	result = prime * result + rate;
 	result = prime * result
 			+ ((rateDateTime == null) ? 0 : rateDateTime.hashCode());
 	result = prime * result + ((uid == null) ? 0 : uid.hashCode());
@@ -64,7 +65,7 @@ public boolean equals(Object obj) {
 			return false;
 	} else if (!bid.equals(other.bid))
 		return false;
-	if (Double.doubleToLongBits(rate) != Double.doubleToLongBits(other.rate))
+	if (rate != other.rate)
 		return false;
 	if (rateDateTime == null) {
 		if (other.rateDateTime != null)
@@ -78,7 +79,7 @@ public boolean equals(Object obj) {
 		return false;
 	return true;
 }
-public Rate(String bid, String uid, double rate, Date rateDateTime) {
+public Rate(String bid, String uid, int rate, Date rateDateTime) {
 	super();
 	this.bid = bid;
 	this.uid = uid;

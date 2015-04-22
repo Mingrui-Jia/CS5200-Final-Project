@@ -56,5 +56,17 @@
 		<property name="target" ref="followManagerBase"></property>
 
 	</bean>
+	<!-- For Rate -->
+	<bean id="rateDao" class="com.angular.dao.RateDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="rateManagerBase" class="com.angular.service.RateManager">
+		<property name="rateDao" ref="rateDao"></property>
+	</bean>
+
+	<bean id="rateManager" parent="transactionBese">
+		<property name="target" ref="rateManagerBase"></property>
+
+	</bean>
 	
 </beans>

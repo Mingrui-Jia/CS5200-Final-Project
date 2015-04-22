@@ -62,6 +62,7 @@
 
 		<div class="starter-template">
 			<h1>Account Information for ${username }</h1>
+			<a class="btn btn-primary" href="<%=request.getContextPath()%>/user/update/<%=str%>"><span class="glyphicon glyphicon-cog"></span></a>
 			<h2>You favors:</h2>
 			<ul>
 				<c:forEach var="book" items="${books}">

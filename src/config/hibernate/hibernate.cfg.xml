@@ -7,7 +7,7 @@
 
 	<session-factory>
 
-		
+		<mapping class="com.angular.entity.Rate" />
 
 		<mapping class="com.angular.entity.User" />
 		<mapping class="com.angular.entity.Book" />

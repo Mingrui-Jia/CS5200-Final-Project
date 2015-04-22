@@ -59,13 +59,34 @@ public class UserDAO implements IUserDAO {
 	
 	@Override
 	public boolean checkUserExist(User user) {
-		// ¼ì²éÊäÈëµÄusernameÊÇ·ñ´æÔÚ
+		
 		Session s=sessionFactory.openSession();
 		s.beginTransaction();
 		User user1=(User)s.get(User.class, user.getUserName());
 		
 		s.getTransaction().commit();
 		return(user1!=null);
+	}
+//	4.21 13£º00
+	public void updateProfile(User user) {
+//		, String password, String firstName, String lastName, String email, String phoneNumber
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+		User user1=(User)s.get(User.class, user.getUserName());
+		String password = user.getPassword();
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		String email = user.getEmail();
+		String phoneNumber = user.getPhoneNumber();
+		user1.setPassword(password);
+		user1.setFirstName(firstName);
+		user1.setLastName(lastName);
+		user1.setEmail(email);
+		user1.setPhoneNumber(phoneNumber);
+		s.update(user1);
+//		s.merge(user1);
+		s.getTransaction().commit();
+		s.close();
 	}
 	
 }
