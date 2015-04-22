@@ -61,8 +61,8 @@
 	<div class="container">
 
 		<div class="starter-template">
-			<h1> ${otheruser }<a class="btn btn-danger" href="<%=request.getContextPath()%>/user/follow/<%=str %>/${otheruser}"><span class="glyphicon glyphicon-heart"></span></a></h1>
-			<h2>This user favors:</h2>
+			<h1>Account Information for ${username }</h1>
+			<h2>You favors:</h2>
 			<ul>
 				<c:forEach var="book" items="${books}">
 					<li><h3>

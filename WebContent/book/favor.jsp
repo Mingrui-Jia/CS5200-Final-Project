@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>ebook4u</title>
+    <title>Starter Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet"
@@ -58,8 +58,17 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>Mismatch of username and password.</h1>
-        </div>
+      <%
+			String str1=(String) session.getAttribute("bookID");
+			
+			//String str = (String) session.getAttribute("currentUser");
+			
+			
+		%>
+		<div><h1>Hello <%=str %></h1></div>
+		<div><h2>You have successfully favored the book <%=str1 %></h2></div>
+		<div><h2>You can check it in your favorite list.</h2></div>
+             </div>
 
     </div><!-- /.container -->
 

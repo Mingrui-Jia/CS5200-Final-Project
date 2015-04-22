@@ -43,9 +43,10 @@
 			%>
 			<ul class="nav navbar-nav">
 				<li class="active"><a
-					href="<%=request.getContextPath()%>/book/search">Search</a></li>
-				<li><a href="<%=request.getContextPath()%>/user/<%=str%>">Account</a></li>
-				<li><a href="<%=request.getContextPath()%>/contact.jsp">Contact</a></li>
+						href="<%=request.getContextPath()%>/book/search"><span class="glyphicon glyphicon-search"></span></a></li>
+					<li><a href="<%=request.getContextPath()%>/user/<%=str%>"><span class="glyphicon glyphicon-user"></span></a></li>
+					<li><a href="<%=request.getContextPath()%>/contact.jsp"><span class="glyphicon glyphicon-phone-alt"></span></a></li>
+				
 			</ul>
 		</div>
 		<!--/.nav-collapse -->
@@ -53,7 +54,7 @@
 	</nav>
 	<div ng-controller="DetailController" class=" starter-template">
 	<h4>ISBN:</h4>
-		<h4 id="id">{{details.ISBN}}</h4><a class="btn btn-danger" href="addFavor/${id }/<%=str%>"><span class="glyphicon glyphicon-heart"></span></a>
+		<h4 id="id">{{details.ISBN}}</h4><a class="btn btn-primary" href="addFavor/${id }/<%=str%>"><span class="glyphicon glyphicon-thumbs-up"></span></a>
 		<div ng-show="details">
 			<div class="row">
 				<div class="col-sm-3">
@@ -77,7 +78,7 @@
  		<h2>People who favor this book:</h2>
 		<ul>
 			<c:forEach var="user" items="${users}">
-				<li><h3><a href="<%=request.getContextPath()%>/user/${user}">${user}</a></h3></li>
+				<li><h3><a href="<%=request.getContextPath()%>/user/profile/${user}">${user}</a></h3></li>
 			</c:forEach>
 		</ul>
  

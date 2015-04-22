@@ -10,4 +10,5 @@ public interface IFavorManager {
 	public boolean checkFavor(Favor favor);
 	public List<String> findFavoriteBookByUser(String username);
 	public List<String> findUserByFavoriteBook(String bookid);
+	public void deleteFavor(Favor favor);
 }

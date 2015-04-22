@@ -49,20 +49,7 @@ public class bookController {
 		model.addAttribute("id", bookID);
 		return  "book/details";
 	}
-	/*
-	@RequestMapping(value="/add/{bookID}")
 	
-	public String addBook(@PathVariable String bookID,HttpServletRequest request){
-		System.out.println(bookID);
-		
-		Book book= new Book();
-		book.setId(bookID);
-		bookManager.saveBook(book);
-		String result ="this is details";
-		return toDetails(bookID);
-		//return new ModelAndView("/book/"+bookID,"id",bookID);
-	}
-	*/
 	@RequestMapping(value="/addFavor/{bookID}/{username}")
 	public String addFavor(@PathVariable String bookID,@PathVariable String username,HttpServletRequest request){
 		if(username.equals("null")){
@@ -71,24 +58,27 @@ public class bookController {
 		}
 		Book book= new Book();
 		book.setId(bookID);
+		Favor favor=new Favor();
+		favor.setBookID(bookID);
+		favor.setUserID(username);
+		
 		if(!bookManager.checkBook(book)){
 			
 			bookManager.saveBook(book);
 		}else{
 			System.out.println("book already exists");
 		}
-		Favor favor=new Favor();
-		favor.setBookID(bookID);
-		favor.setUserID(username);
+	
 		if(favorManager.checkFavor(favor)){
-			return "book/already";
+			favorManager.deleteFavor(favor);
+			return "book/unfavor";
 		}else{
 			System.out.println(favor.getBookID());
 			System.out.println(favor.getUserID());
 			favorManager.saveFavor(favor);
 			HttpSession session=request.getSession();
 			session.setAttribute("bookID", bookID);
-			return "book/confirm";
+			return "book/favor";
 		}
 		
 		//return new ModelAndView("/book/"+bookID,"id",bookID);

@@ -17,8 +17,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 
+
+
+
+
+import com.angular.entity.Book;
+import com.angular.entity.Favor;
+import com.angular.entity.Follow;
 import com.angular.entity.User;
+import com.angular.service.FollowManager;
 import com.angular.service.IFavorManager;
+import com.angular.service.IFollowManager;
 import com.angular.service.IUserManager;
 import com.angular.service.UserManager;
 
@@ -30,7 +39,8 @@ public class UserController {
 	private IUserManager userManager;
 	@Resource(name="favorManager")
 	private IFavorManager favorManager;
-	
+	@Resource(name="followManager")
+	private IFollowManager followManager;
 	@RequestMapping("/checkUserExist")
 	public String checkUserExist(User user) {
 		//System.out.println(userManager.checkUserExist(user));
@@ -47,12 +57,20 @@ public class UserController {
 	}
 	
 	@RequestMapping("/{username}")
-	public String toUserProfile(@PathVariable String username,Model model){
+	public String toAccountInfo(@PathVariable String username,Model model){
 		if(username.equals("null")){
 			return login();
 		}
 		List<String> books=favorManager.findFavoriteBookByUser(username);
 		model.addAttribute("books", books);
+		return "/accountInfo";
+	}
+	@RequestMapping("/profile/{username}")
+	public String toProfile(@PathVariable String username,Model model){
+		
+		List<String> books=favorManager.findFavoriteBookByUser(username);
+		model.addAttribute("books", books);
+		model.addAttribute("otheruser", username);
 		return "/profile";
 	}
 	
@@ -68,6 +86,43 @@ public class UserController {
 		}else{
 			return "/fail";
 		}
+		
+	}
+	@RequestMapping(value="/follow/{follower}/{followed}")
+	public String addFollow(@PathVariable String follower,@PathVariable String followed,HttpServletRequest request
+			,Model model){
+		if(follower.equals("null")){
+			UserController uc= new UserController();
+			return uc.login();
+		}
+		Follow follow=new Follow(follower,followed);
+		
+		if(!follower.equals(followed)){
+			
+			
+			if(followManager.checkFollow(follow)){
+				followManager.deleteFollow(follow);
+				System.out.println("delete");
+			}else{
+				followManager.saveFollow(follow);
+				System.out.println("save");
+			}
+		}
+		
+		return toProfile(followed,model);
+	
+//		if(favorManager.checkFavor(favor)){
+//			favorManager.deleteFavor(favor);
+//			return "book/unfavor";
+//		}else{
+//			System.out.println(favor.getBookID());
+//			System.out.println(favor.getUserID());
+//			favorManager.saveFavor(favor);
+//			HttpSession session=request.getSession();
+//			session.setAttribute("bookID", bookID);
+//			return "book/favor";
+//		}
+		
 		
 	}
 

@@ -44,4 +44,17 @@
 
 	</bean>
 	
+	<!-- For Follow -->
+	<bean id="followDao" class="com.angular.dao.FollowDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="followManagerBase" class="com.angular.service.FollowManager">
+		<property name="followDao" ref="followDao"></property>
+	</bean>
+
+	<bean id="followManager" parent="transactionBese">
+		<property name="target" ref="followManagerBase"></property>
+
+	</bean>
+	
 </beans>

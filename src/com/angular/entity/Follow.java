@@ -1,10 +1,12 @@
 package com.angular.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Follow {
+public class Follow implements Serializable{
 private String follow;
 private String beingFollowed;
 @Id

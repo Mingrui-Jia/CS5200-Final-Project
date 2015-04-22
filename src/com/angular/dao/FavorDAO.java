@@ -33,14 +33,7 @@ public class FavorDAO implements IFavorDAO{
 		s.getTransaction().commit();
 		s.close();
 		
-//		
-//		sessionFactory.getCurrentSession().save(user);
-//		
-//		Session s=sessionFactory.getCurrentSession();
-//		s.beginTransaction();
-//		
-//		s.save(user);
-//		s.getTransaction().commit();
+
 		
 	}
 	@Override
@@ -67,12 +60,7 @@ public class FavorDAO implements IFavorDAO{
 		Query query = s.createQuery(hql);
 		return (List<String>)query.list();
 		
-//		List<String> bookIdList = new ArrayList();
-//		for (Book book : books) {
-//			bookIdList.add(book.getId());
-//		}
-//		
-//		return bookIdList;
+
 	}
 	
 	@Override
@@ -86,5 +74,14 @@ public class FavorDAO implements IFavorDAO{
 		return (List<String>)query.list();
 	}
 
-
+	@Override
+	@Transactional
+	public void deleteFavor(Favor favor) {
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+		s.delete(favor);
+		s.getTransaction().commit();
+		s.close();
+		
+	}
 }

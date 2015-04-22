@@ -45,9 +45,11 @@
 				String str = (String) session.getAttribute("currentUser");
 			%>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="<%=request.getContextPath()%>/book/search">Search</a></li>
-					<li><a href="<%=request.getContextPath()%>/user/<%=str%>">Account</a></li>
-					<li><a href="<%=request.getContextPath()%>/contact.jsp">Contact</a></li>
+					<li class="active"><a
+						href="<%=request.getContextPath()%>/book/search"><span class="glyphicon glyphicon-search"></span></a></li>
+					<li><a href="<%=request.getContextPath()%>/user/<%=str%>"><span class="glyphicon glyphicon-user"></span></a></li>
+					<li><a href="<%=request.getContextPath()%>/contact.jsp"><span class="glyphicon glyphicon-phone-alt"></span></a></li>
+				
 				</ul>
 			</div>
 			<!--/.nav-collapse -->

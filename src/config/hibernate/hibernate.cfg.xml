@@ -12,6 +12,7 @@
 		<mapping class="com.angular.entity.User" />
 		<mapping class="com.angular.entity.Book" />
 		<mapping class="com.angular.entity.Favor" />
+		<mapping class="com.angular.entity.Follow" />
 	</session-factory>
 
 </hibernate-configuration>

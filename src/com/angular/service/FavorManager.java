@@ -40,7 +40,12 @@ public class FavorManager implements IFavorManager {
 		return favorDao.findUserByFavoriteBook(bookid);
 	}
 
-	
+	@Override
+	public void deleteFavor(Favor favor) {
+		// TODO Auto-generated method stub
+		favorDao.deleteFavor(favor);
+		
+	}
 	
 
 }
