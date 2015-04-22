@@ -15,21 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.angular.entity.*;
+import com.angular.service.*;
 
-
-
-
-
-
-import com.angular.entity.Book;
-import com.angular.entity.Favor;
-import com.angular.entity.Follow;
-import com.angular.entity.User;
-import com.angular.service.FollowManager;
-import com.angular.service.IFavorManager;
-import com.angular.service.IFollowManager;
-import com.angular.service.IUserManager;
-import com.angular.service.UserManager;
 
 
 @Controller
@@ -37,25 +25,20 @@ import com.angular.service.UserManager;
 public class UserController {
 	@Resource(name="userManager")
 	private IUserManager userManager;
-	@Resource(name="favorManager")
-	private IFavorManager favorManager;
 	@Resource(name="followManager")
 	private IFollowManager followManager;
-	@RequestMapping("/checkUserExist")
-	public String checkUserExist(User user) {
-		//System.out.println(userManager.checkUserExist(user));
-		if(userManager.checkUserExist(user)){
-			//System.out.println(userManager.checkUserExist(user));
-			return "/userAlreadyExist";
-		}
-		else return saveUser(user);
-	}
+	@Resource(name="favorManager")
+	private IFavorManager favorManager;
+	
+	
+//	Model可以用于向页面中传值，算是一个map，key是"username"，值是这里传入的username
+//	要先拿到当前登录的用户名再更改profile，并将该用户名显示到下一个更改的界面
 	@RequestMapping("/update/{username}")
 	public String toUpdate(@PathVariable String username, Model model){
 		model.addAttribute("username", username);
 		return "/updateProfile";
 	}
-	
+//	看看userDAO里面的方法改了没
 	@RequestMapping("/updateProfile/{username}")
 	public String updateProfile(User user,@PathVariable String username) {
 		System.out.println(user.getPassword());
@@ -64,46 +47,34 @@ public class UserController {
 		System.out.println("update success!");
 		return "/accountInfo";
 	}
+	
+	
+
+	
+//	通过toSaveUser转到/addUser这个jsp，再调用saveUser
 	@RequestMapping("/toSaveUser")
 	public String toSaveUser(){
 		return "/addUser";
 	}
 	
-	@RequestMapping("/{username}")
-	public String toAccountInfo(@PathVariable String username,Model model){
-		if(username.equals("null")){
-			return login();
+//	这里是addUser的jsp里面调用了saveUser的方法再map到下面welcome.jsp（Angular.xml里面加的前缀后缀）
+	@RequestMapping("/saveUser")
+	public String saveUser(User user){
+		if (userManager.checkUserExist(user)) {
+			System.out.println("userAlreadyExist");
+			return "/addUser";
+//			return toSaveUser();
 		}
-		List<String> books=favorManager.findFavoriteBookByUser(username);
-		model.addAttribute("books", books);
-		return "/accountInfo";
-	}
-	@RequestMapping("/profile/{username}")
-	public String toProfile(@PathVariable String username,Model model){
-		
-		List<String> books=favorManager.findFavoriteBookByUser(username);
-		model.addAttribute("books", books);
-		model.addAttribute("otheruser", username);
-		return "/profile";
+		else {
+			userManager.saveUser(user);
+		}
+		return "/welcome";
 	}
 	
-	@RequestMapping("/checkUser")
-	public String check(User user,HttpServletRequest request){
-		//System.out.println(user.getUserName());
-		  
-		if(userManager.checkUser(user)){
-			HttpSession session=request.getSession();
-			session.setAttribute("currentUser", user.getUserName());
-			
-			return "/success";
-		}else{
-			return "/fail";
-		}
-		
-	}
+
 	@RequestMapping(value="/follow/{follower}/{followed}")
-	public String addFollow(@PathVariable String follower,@PathVariable String followed,HttpServletRequest request
-			,Model model){
+	public String addFollow(@PathVariable String follower,@PathVariable String followed,
+			HttpServletRequest request, Model model){
 		if(follower.equals("null")){
 			UserController uc= new UserController();
 			return uc.login();
@@ -124,31 +95,56 @@ public class UserController {
 		
 		return toProfile(followed,model);
 	
-//		if(favorManager.checkFavor(favor)){
-//			favorManager.deleteFavor(favor);
-//			return "book/unfavor";
-//		}else{
-//			System.out.println(favor.getBookID());
-//			System.out.println(favor.getUserID());
-//			favorManager.saveFavor(favor);
-//			HttpSession session=request.getSession();
-//			session.setAttribute("bookID", bookID);
-//			return "book/favor";
-//		}
+
 		
 		
 	}
 
+
+	
+	@RequestMapping("/{username}")
+	public String toAccountInfo(@PathVariable String username,Model model) {
+//		如果拿到的username是null，跳到登录页面，注意这里可以调用controller里面的方法
+		if(username.equals("null")){
+			return login();
+		}
+//		这里把书名的list传到model中，可以在jsp中调用，在accountInfo页面列出
+		List<String> books=favorManager.findFavoriteBookByUser(username);
+		model.addAttribute("books", books);
+		return "/accountInfo";
+	}
+	
+	@RequestMapping("/profile/{username}")
+	public String toProfile(@PathVariable String username,Model model){
+		
+		List<String> books=favorManager.findFavoriteBookByUser(username);
+		model.addAttribute("books", books);
+		model.addAttribute("otheruser", username);
+		return "/profile";
+	}
+	
+	@RequestMapping("/checkUser")
+	public String check(User user, HttpServletRequest request){
+		//System.out.println(user.getUserName());
+		  
+		if(userManager.checkUser(user)){
+			HttpSession session=request.getSession();
+			session.setAttribute("currentUser", user.getUserName());
+			
+			return "/success";
+		}else{
+			return "/fail";
+		}
+		
+	}
+
+//	jsp页面中可以调这个，通过"/login" map过来之后再return一个String，map到
 	@RequestMapping("/login")
 	public String login(){
 		
 		return "/login";
 	}
 	
-	@RequestMapping("/saveUser")
-	public String saveUser(User user){
-		userManager.saveUser(user);
-		return "/welcome";
-	}
+
 
 }

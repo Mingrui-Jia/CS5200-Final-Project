@@ -19,7 +19,13 @@ function checkUser(){
 	form.submit();
 	
 }
-
+function singUp(){
+	var form=document.forms[0];
+	form.action="/ssh1/user/toSaveUser";
+	form.method="get";
+	form.submit();
+	
+}
 </script>
 </head>
 <body>
@@ -53,8 +59,8 @@ function checkUser(){
 
       <form class="form-signin" name="userForm">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Username</label>
-        <input name="userName" type="text" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+        <label for="inputUsername" class="sr-only">Username</label>
+        <input name="userName" type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
@@ -63,6 +69,7 @@ function checkUser(){
           </label>
         </div>
         <input class="btn btn-lg btn-primary btn-block" type="button" value="login" onclick="checkUser()">
+        <input class="btn btn-lg btn-primary btn-block" type="button" value="sign up" onclick="singUp()"> 
         
       </form>
 
