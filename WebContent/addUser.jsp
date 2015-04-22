@@ -4,9 +4,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+<meta charset="utf-8">
+    
+
+    <!-- Custom styles for this template -->
+    <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Register</title>
+<title>ebook4u</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript">
 function addUser(){

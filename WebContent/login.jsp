@@ -53,8 +53,8 @@ function checkUser(){
 
       <form class="form-signin" name="userForm">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input name="userName" type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputEmail" class="sr-only">Username</label>
+        <input name="userName" type="text" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
