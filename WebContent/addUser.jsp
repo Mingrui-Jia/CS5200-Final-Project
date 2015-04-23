@@ -13,6 +13,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ebook4u</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<%
+					String str = (String) session.getAttribute("currentUser");
+				%>
 <script type="text/javascript">
 function addUser(){
 	var form=document.forms[0];
@@ -25,19 +28,43 @@ function addUser(){
 </script>
 </head>
 <body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">ebook4u</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+			
+				<ul class="nav navbar-nav">
+					<li class="active"><a
+						href="<%=request.getContextPath()%>/book/search"><span class="glyphicon glyphicon-search"></span></a></li>
+					<li><a href="<%=request.getContextPath()%>/user/<%=str%>"><span class="glyphicon glyphicon-user"></span></a></li>
+					<li><a href="<%=request.getContextPath()%>/contact.jsp"><span class="glyphicon glyphicon-phone-alt"></span></a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
 <div class="container">
-	<form name="userForm" action="">
-		name:<input type="text" name="userName"> <br>
-		password:<input type="text" name="password"><br>
-		email:<input type="text" name="email"><br>
-		first name:<input type="text" name="firstName"><br>
-		last name:<input type="text" name="lastName"><br>
-		phone#:<input type="text" name="phoneNumber"><br>
-		<input type="button" value="add" onclick="addUser()"><br>
+	<form name="userForm" action="" class="form-signin">
+		name:<input type="text" name="userName" class="form-control"> <br>
+		password:<input type="text" name="password" class="form-control"><br>
+		email:<input type="text" name="email" class="form-control"><br>
+		first name:<input type="text" name="firstName" class="form-control"><br>
+		last name:<input type="text" name="lastName" class="form-control"><br>
+		phone#:<input type="text" name="phoneNumber" class="form-control"><br>
+		<input class="btn btn-lg btn-primary btn-block" type="button" value="add" onclick="addUser()"><br>
 	</form>
-	</div>
-	<h2>add User</h2>
 	<h3>If the username already exist, please type in again</h3>
+	</div>
+	
 
 
 </body>
