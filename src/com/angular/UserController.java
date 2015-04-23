@@ -108,18 +108,28 @@ public class UserController {
 		if(username.equals("null")){
 			return login();
 		}
+		User user = userManager.findUserByUsername(username);
+		int following=user.getFollowing();
+		int followed=user.getFollowed();
 //		这里把书名的list传到model中，可以在jsp中调用，在accountInfo页面列出
 		List<String> books=favorManager.findFavoriteBookByUser(username);
 		model.addAttribute("books", books);
+		model.addAttribute("username", username);
+		model.addAttribute("following", following);
+		model.addAttribute("followed", followed);
 		return "/accountInfo";
 	}
 	
 	@RequestMapping("/profile/{username}")
 	public String toProfile(@PathVariable String username,Model model){
-		
+		User user = userManager.findUserByUsername(username);
+		int following=user.getFollowing();
+		int followed=user.getFollowed();
 		List<String> books=favorManager.findFavoriteBookByUser(username);
 		model.addAttribute("books", books);
 		model.addAttribute("otheruser", username);
+		model.addAttribute("following", following);
+		model.addAttribute("followed", followed);
 		return "/profile";
 	}
 	
@@ -137,7 +147,27 @@ public class UserController {
 		}
 		
 	}
+	@RequestMapping("/{username}/following")
+	public String findFollowing(@PathVariable String username, Model model){
+		List<String> followingList=userManager.findFollowingByUser(username);//username是follow别人的人
+		for(String follow : followingList){
+			System.out.println(follow);
+		}
+		System.out.println(username);
+		model.addAttribute("followingList", followingList);
+		return "/following";
+	}
 
+	@RequestMapping("/{username}/followed")
+	public String findFollowed(@PathVariable String username, Model model){
+		List<String> followedList=userManager.findFollowedByUser(username);//username是被人follow的人
+		for(String follow : followedList){
+			System.out.println(follow);
+		}
+		System.out.println(username);
+		model.addAttribute("followingList", followedList);
+		return "/followed";
+	}
 //	jsp页面中可以调这个，通过"/login" map过来之后再return一个String，map到
 	@RequestMapping("/login")
 	public String login(){

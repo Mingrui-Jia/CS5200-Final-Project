@@ -1,5 +1,7 @@
 package com.angular.service;
 
+import java.util.List;
+
 import com.angular.dao.IUserDAO;
 import com.angular.entity.User;
 
@@ -32,5 +34,20 @@ public class UserManager implements IUserManager {
 	public void updateProfile(User user) {
 		
 		userDao.updateProfile(user);
+	}
+//	20150423-11:00
+	@Override
+	public List<String> findFollowedByUser(String username) {
+		 return userDao.findFollowedByUser(username);
+	}
+//	20150423-11:00
+	@Override
+	public List<String> findFollowingByUser(String username) {
+		return userDao.findFollowingByUser(username);
+	}
+//	20150423-11:00
+	@Override
+	public User findUserByUsername(String username) {
+		return userDao.findUserByUsername(username);
 	}
 }

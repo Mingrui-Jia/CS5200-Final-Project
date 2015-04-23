@@ -1,9 +1,14 @@
 package com.angular.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.angular.entity.Follow;
 import com.angular.entity.User;
 
 
@@ -35,6 +40,67 @@ public class UserDAO implements IUserDAO {
 //		s.save(user);
 //		s.getTransaction().commit();
 		
+	}
+//	20150423-11:00
+	@Override
+	@Transactional
+//	被谁follow
+	public List<String> findFollowedByUser(String username) {
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+//		得到follow实体的list，没有数字的ID，麻烦！
+		List<Follow> follows = new ArrayList<Follow>();
+		String hql1 = "select follow from Follow follow";
+		Query query1 = s.createQuery(hql1);
+		follows = (List<Follow>)query1.list();
+		List<String> resultsList = new ArrayList<String>();
+		for (Follow follow :follows) {
+			
+			if (follow.getBeingFollowed().equals(username)) {
+				System.out.println(follow.getFollow());
+				resultsList.add(follow.getFollow());
+			}
+		}
+		
+		s.getTransaction().commit();
+
+		return resultsList;
+	}
+	
+//	20150423-11:00
+	@Override
+	@Transactional
+//	follow的人
+	public List<String> findFollowingByUser(String username) {
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+//		得到follow实体的list，没有数字的ID，麻烦！
+		List<Follow> follows = new ArrayList<Follow>();
+		String hql1 = "select follow from Follow follow";
+		Query query1 = s.createQuery(hql1);
+		follows = (List<Follow>)query1.list();
+		List<String> resultsList = new ArrayList<String>();
+		for (Follow follow :follows) {
+			if (follow.getFollow().equals(username)) {
+				resultsList.add(follow.getBeingFollowed());
+			}
+		}
+		
+		s.getTransaction().commit();
+
+		return resultsList;
+	}
+	
+//	20150423-11:00
+	@Override
+	@Transactional
+	public User findUserByUsername(String username) {
+		Session s=sessionFactory.openSession();
+		s.beginTransaction();
+		User user = (User) s.get(User.class, username);
+		s.getTransaction().commit();
+		//s.close();
+		return user;
 	}
 	@Override
 	@Transactional

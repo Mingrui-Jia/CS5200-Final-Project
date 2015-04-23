@@ -7,7 +7,6 @@
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon" href="../../favicon.ico">
 
 <title>ebook4u</title>
 
@@ -19,8 +18,46 @@
 <link
 	href="http://getbootstrap.com/examples/starter-template/starter-template.css"
 	rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script type="text/javascript">
 
 
+	var app=angular.module("FavorApp",[]);
+	app.controller("FavorController",function($scope,$http){
+		
+		var books=${books};
+		var l=books.length;
+		var titles= new Array();
+		
+		
+		
+		for(var i=0,l=books.length;i<2;i++){
+			
+			var down="http://it-ebooks-api.info/v1/book/" + books[i];
+			$http.get(down).success(function(response){
+				
+				var title=response.Title;
+				titles[i]=title;
+			});
+			
+		};
+		console.log(titles);
+		
+		
+	});
+	
+
+
+
+
+</script>
+<style>
+             table.center {
+    margin-left:auto; 
+    margin-right:auto;
+  }
+        </style>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -29,7 +66,7 @@
     <![endif]-->
 </head>
 
-<body>
+<body ng-app="FavorApp">
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -60,19 +97,40 @@
 
 	<div class="container">
 
-		<div class="starter-template">
+		<div class="starter-template" ng-controller="FavorController">
 			<h1>Account Information for ${username }</h1>
 			<a class="btn btn-primary" href="<%=request.getContextPath()%>/user/update/<%=str%>"><span class="glyphicon glyphicon-cog"></span></a>
+			<table class=" table-striped center" style="text-align:center;">
+				<tr>
+					<th>following</th>
+					<th>followed</th>
+					
+				</tr>
+				<tr >
+					
+					<td><a href="<%=request.getContextPath()%>/user/<%=str%>/following">${following }</a></td>
+					<td><a href="<%=request.getContextPath()%>/user/<%=str%>/followed">${followed }</a></td>
+
+				</tr>
+			</table>
+			
+			
 			<h2>You favors:</h2>
 			<ul>
 				<c:forEach var="book" items="${books}">
 					<li><h3>
 							<a href="<%=request.getContextPath()%>/book/${book}">${book}</a>
 						</h3></li>
+						
 				</c:forEach>
 			</ul>
+			<div>
+			<ul>
+				
+			</ul>
+			</div>
 		</div>
-
+		
 	</div>
 	<!-- /.container -->
 
