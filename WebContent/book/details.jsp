@@ -9,6 +9,9 @@
 	<link href="http://getbootstrap.com/examples/starter-template/starter-template.css" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<%
+				String str = (String) session.getAttribute("currentUser");
+			%>
 <script type="text/javascript">
 	var app = angular.module("DetailApp", []);
 	
@@ -20,7 +23,15 @@
 			console.log(response);
 		});
 	});
+	function createComment(){
+		var form = document.forms[0];
+		form.action="/ssh1/book/addComment/${bookID}/<%=str%>";
+		form.method="post";
+		form.submit();
+	}
 </script>
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Details</title>
 </head>
@@ -38,9 +49,7 @@
 			<a class="navbar-brand" href="#">ebook4u</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
-			<%
-				String str = (String) session.getAttribute("currentUser");
-			%>
+			
 			<ul class="nav navbar-nav">
 				<li class="active"><a
 						href="<%=request.getContextPath()%>/book/search"><span class="glyphicon glyphicon-search"></span></a></li>
@@ -72,6 +81,8 @@
 				</div>
 				
 			</div>
+			 <a href="<%=request.getContextPath()%>/book/toComment/<%=str%>/${id}"><button class="btn btn-primary">Some Idea on this Book?</button></a>
+	</form>
 		</div>
 		
  
@@ -81,10 +92,12 @@
 				<li><h3><a href="<%=request.getContextPath()%>/user/profile/${user}">${user}</a></h3></li>
 			</c:forEach>
 		</ul>
+		<h3>Comments(${number })</h3>
  
-	
+ 
+ 
+
 </body>
-	</div>
 	
 	
 	

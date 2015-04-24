@@ -13,6 +13,7 @@
 		<mapping class="com.angular.entity.Book" />
 		<mapping class="com.angular.entity.Favor" />
 		<mapping class="com.angular.entity.Follow" />
+		<mapping class="com.angular.entity.Comments" />
 	</session-factory>
 
 </hibernate-configuration>

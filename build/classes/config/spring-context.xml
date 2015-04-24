@@ -69,4 +69,18 @@
 
 	</bean>
 	
+	
+	<!-- For Comments -->
+	<bean id="commentsDao" class="com.angular.dao.CommentsDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="commentsManagerBase" class="com.angular.service.CommentsManager">
+		<property name="commentsDao" ref="commentsDao"></property>
+	</bean>
+
+	<bean id="commentsManager" parent="transactionBese">
+		<property name="target" ref="commentsManagerBase"></property>
+
+	</bean>
+	
 </beans>

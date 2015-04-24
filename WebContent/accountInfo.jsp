@@ -20,8 +20,8 @@
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<!--  
 <script type="text/javascript">
-
 
 	var app=angular.module("FavorApp",[]);
 	app.controller("FavorController",function($scope,$http){
@@ -45,13 +45,13 @@
 		console.log(titles);
 		
 		
-	});
+	});*/
 	
 
 
 
 
-</script>
+</script>-->
 <style>
              table.center {
     margin-left:auto; 

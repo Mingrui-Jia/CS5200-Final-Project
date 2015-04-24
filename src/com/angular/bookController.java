@@ -19,6 +19,7 @@ import com.angular.entity.Book;
 import com.angular.entity.Favor;
 import com.angular.entity.User;
 import com.angular.service.IBookManager;
+import com.angular.service.ICommentsManager;
 import com.angular.service.IFavorManager;
 import com.angular.service.IUserManager;
 
@@ -30,6 +31,8 @@ public class bookController {
 	private IBookManager bookManager;
 	@Resource(name="favorManager")
 	private IFavorManager favorManager;
+	@Resource(name="commentsManager")
+	private ICommentsManager commentsManager;
 	
 	
 	
@@ -44,10 +47,19 @@ public class bookController {
 
 		//System.out.println("this is details");
 		List<String> users=(List<String>) favorManager.findUserByFavoriteBook(bookID);
-		
+//		List<String> commentList=(List<String>) commentsManager.findCommentByBook(bookID);
+//		model.addAttribute("comments", commentList);
 		model.addAttribute("users", users);
 		model.addAttribute("id", bookID);
 		return  "book/details";
+	}
+	@RequestMapping(value="toComment/{username}/{bookID}")
+	public String toCreateComment(@PathVariable String username, @PathVariable String bookID,Model model){
+		System.out.println(username);
+		System.out.println(bookID);
+		model.addAttribute("username",username);
+		model.addAttribute("bookID", bookID);
+		return "book/comment";
 	}
 	
 	@RequestMapping(value="/addFavor/{bookID}/{username}")
