@@ -40,12 +40,13 @@ public class UserController {
 	}
 //	看看userDAO里面的方法改了没
 	@RequestMapping("/updateProfile/{username}")
-	public String updateProfile(User user,@PathVariable String username) {
+	public String updateProfile(User user,@PathVariable String username, Model model) {
 		System.out.println(user.getPassword());
 		user.setUserName(username);
 		userManager.updateProfile(user);
 		System.out.println("update success!");
-		return "/accountInfo";
+		return toAccountInfo(username,model);
+		//return "/accountInfo";
 	}
 	
 	
@@ -59,7 +60,8 @@ public class UserController {
 	
 //	这里是addUser的jsp里面调用了saveUser的方法再map到下面welcome.jsp（Angular.xml里面加的前缀后缀）
 	@RequestMapping("/saveUser")
-	public String saveUser(User user){
+	public String saveUser(User user, Model model,HttpServletRequest request){
+		String username=user.getUserName();
 		if (userManager.checkUserExist(user)) {
 			System.out.println("userAlreadyExist");
 			return "/addUser";
@@ -68,7 +70,9 @@ public class UserController {
 		else {
 			userManager.saveUser(user);
 		}
-		return "/welcome";
+		HttpSession session=request.getSession();
+		session.setAttribute("currentUser", user.getUserName());
+		return toAccountInfo(username,model);
 	}
 	
 
